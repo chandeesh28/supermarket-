@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ledger</title>
+    <link rel="stylesheet" href="ledger.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Shop Admin</h2>
+    <ul>
+        <li>Dashboard</li>
+        <li>Billing</li>
+        <li>Inventory</li>
+        <li class="active">Ledger</li>
+        <li>Reports</li>
+    </ul>
+</div>
+
+<div class="main">
+
+    <div class="topbar">
+        <h1>Ledger Management</h1>
+        <button class="add-btn">+ Add Transaction</button>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="cards">
+        <div class="card income">
+            <h3>Total Cash In</h3>
+            <p>₹ 1,50,000</p>
+        </div>
+
+        <div class="card expense">
+            <h3>Total Cash Out</h3>
+            <p>₹ 80,000</p>
+        </div>
+
+        <div class="card balance">
+            <h3>Current Balance</h3>
+            <p>₹ 70,000</p>
+        </div>
+    </div>
+
+    <!-- Ledger Table -->
+    <div class="table-section">
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Mode</th>
+            </tr>
+
+            <tr>
+                <td>12-02-2026</td>
+                <td class="green">Cash In</td>
+                <td>Sales Income</td>
+                <td>₹ 5000</td>
+                <td>Cash</td>
+            </tr>
+
+            <tr>
+                <td>12-02-2026</td>
+                <td class="red">Cash Out</td>
+                <td>Dealer Payment</td>
+                <td>₹ 3000</td>
+                <td>UPI</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

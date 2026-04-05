@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supermarket Inventory</title>
+
+    <style>
+        *{
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Segoe UI', sans-serif;
+            margin:0;
+            background:#f4f6f9;
+        }
+
+        header{
+            background:linear-gradient(to right,#b71c1c,#e53935);
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        .container{
+            width:90%;
+            margin:30px auto;
+        }
+
+        .top-bar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:20px;
+        }
+
+        .add-btn{
+            background:#d32f2f;
+            color:white;
+            padding:10px 18px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .add-btn:hover{
+            background:#9a0007;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        th,td{
+            padding:12px;
+            text-align:center;
+        }
+
+        th{
+            background:#ef5350;
+            color:white;
+        }
+
+        tr:nth-child(even){
+            background:#fce4ec;
+        }
+
+        .badge{
+            padding:5px 10px;
+            border-radius:20px;
+            color:white;
+            font-size:13px;
+        }
+
+        .not{ background:#d32f2f; }
+        .low{ background:#fb8c00; }
+        .ok{ background:#388e3c; }
+
+        .refill-btn{
+            background:#1976d2;
+            color:white;
+            border:none;
+            padding:6px 12px;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        .refill-btn:hover{
+            background:#0d47a1;
+        }
+
+        /* FIXED MODAL */
+        .modal{
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.5);
+            z-index:999;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            visibility:hidden;
+            opacity:0;
+            transition:0.3s ease;
+        }
+
+        .modal.active{
+            visibility:visible;
+            opacity:1;
+        }
+
+        .modal-content{
+            background:white;
+            padding:25px;
+            width:350px;
+            border-radius:10px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.3);
+            animation:popup 0.3s ease;
+        }
+
+        @keyframes popup{
+            from{transform:scale(0.8)}
+            to{transform:scale(1)}
+        }
+
+        .modal-content h3{
+            margin-top:0;
+            color:#b71c1c;
+        }
+
+        .modal-content input{
+            width:100%;
+            padding:8px;
+            margin:8px 0;
+            border-radius:6px;
+            border:1px solid #ccc;
+        }
+
+        .save-btn{
+            background:#b71c1c;
+            color:white;
+            width:100%;
+            padding:10px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            margin-top:10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Supermarket Inventory</h1>
+</header>
+
+<div class="container">
+
+    <div class="top-bar">
+        <h2>Inventory List</h2>
+        <button class="add-btn" onclick="openModal()">+ Add Product</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Min</th>
+                <th>Trader</th>
+                <th>Code</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="inventoryTable"></tbody>
+    </table>
+
+</div>
+
+<!-- ADD PRODUCT MODAL -->
+<div class="modal" id="addModal">
+    <div class="modal-content">
+        <h3>Add New Product</h3>
+
+        <input type="text" id="pname" placeholder="Product Name">
+        <input type="number" id="pstock" placeholder="Stock">
+        <input type="number" id="pmin" placeholder="Minimum Stock">
+        <input type="text" id="ptrader" placeholder="Trader Name">
+        <input type="text" id="pcode" placeholder="Trader Code">
+
+        <button class="save-btn" onclick="addProduct()">Save Product</button>
+    </div>
+</div>
+
+<script>
+
+let products = [
+    {id:1,name:"Rice",stock:0,min:10,trader:"ABC Traders",code:"TR101"},
+    {id:2,name:"Oil",stock:5,min:10,trader:"Kumar Suppliers",code:"TR102"},
+    {id:3,name:"Sugar",stock:30,min:10,trader:"Fresh Mart",code:"TR103"}
+];
+
+function renderTable(){
+    let table=document.getElementById("inventoryTable");
+    table.innerHTML="";
+
+    products.sort((a,b)=>priority(a)-priority(b));
+
+    products.forEach(p=>{
+        let statusClass="",statusText="";
+
+        if(p.stock===0){statusClass="not";statusText="Not Available";}
+        else if(p.stock<=p.min){statusClass="low";statusText="Low Stock";}
+        else{statusClass="ok";statusText="Available";}
+
+        let row=document.createElement("tr");
+
+        row.innerHTML=`
+            <td>${p.id}</td>
+            <td>${p.name}</td>
+            <td>${p.stock}</td>
+            <td>${p.min}</td>
+            <td>${p.trader}</td>
+            <td>${p.code}</td>
+            <td><span class="badge ${statusClass}">${statusText}</span></td>
+            <td>
+    <button class="refill-btn" onclick="goToRefill(${p.id})">
+        Refill
+    </button>
+</td>
+
+        `;
+
+        table.appendChild(row);
+    });
+}
+
+function priority(p){
+    if(p.stock===0) return 1;
+    if(p.stock<=p.min) return 2;
+    return 3;
+}
+
+function goToRefill(id){
+
+    let product = products.find(p => p.id === id);
+
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+    window.location.href = "refill.html";
+}
+
+
+function openModal(){
+    document.getElementById("addModal").classList.add("active");
+}
+
+function closeModal(){
+    document.getElementById("addModal").classList.remove("active");
+}
+
+function addProduct(){
+    let name=document.getElementById("pname").value;
+    let stock=parseInt(document.getElementById("pstock").value);
+    let min=parseInt(document.getElementById("pmin").value);
+    let trader=document.getElementById("ptrader").value;
+    let code=document.getElementById("pcode").value;
+
+    if(name===""||isNaN(stock)||isNaN(min)||trader===""||code===""){
+        alert("All fields required!");
+        return;
+    }
+
+    products.push({
+        id:products.length+1,
+        name,stock,min,trader,code
+    });
+
+    closeModal();
+
+    document.getElementById("pname").value="";
+    document.getElementById("pstock").value="";
+    document.getElementById("pmin").value="";
+    document.getElementById("ptrader").value="";
+    document.getElementById("pcode").value="";
+
+    renderTable();
+}
+
+renderTable();
+
+</script>
+
+</body>
+</html>

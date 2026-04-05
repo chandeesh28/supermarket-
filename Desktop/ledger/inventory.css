@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f1f5f9;
+    padding: 20px;
+}
+
+/* ================= HEADER ================= */
+header {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+}
+
+/* ================= SUMMARY CARDS ================= */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* Color Styles */
+.green { color: #16a34a; }
+.orange { color: #f59e0b; }
+.red { color: #dc2626; }
+
+/* ================= TABLE SECTION ================= */
+.table-section {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+th {
+    background: #111827;
+    color: white;
+    padding: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+td {
+    padding: 14px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+tr:hover {
+    background: #f9fafb;
+}
+
+/* ================= STATUS BADGES ================= */
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.status.available {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status.low {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.status.out {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* ================= BUTTON ================= */
+button {
+    padding: 7px 15px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-weight: 500;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 10px;
+    }
+}

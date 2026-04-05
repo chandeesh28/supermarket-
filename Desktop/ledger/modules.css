@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+}
+
+/* Navbar */
+.navbar {
+    background: white;
+    padding: 20px 50px;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #e53935;
+}
+
+/* Page Title */
+.page-title {
+    text-align: center;
+    padding: 50px 20px 30px;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.page-title p {
+    color: #666;
+}
+
+/* Modules Grid */
+.modules-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 40px 60px;
+}
+
+/* Module Card */
+.module-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.module-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.module-card h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.module-card ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.module-card ul li {
+    margin-bottom: 8px;
+    padding-left: 18px;
+    position: relative;
+}
+
+.module-card ul li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #e53935;
+}
+
+.module-card button {
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.module-card button:hover {
+    background: #c62828;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background: black;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .modules-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .modules-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}

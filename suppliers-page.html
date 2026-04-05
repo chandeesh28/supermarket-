@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppliers - SuperMarket Management</title>
+    <link rel="stylesheet" href="suppliers-style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>SuperMarket</h2>
+            </div>
+            <nav class="menu">
+                <a href="owner-dashboard.html">Dashboard</a>
+                <a href="billing-page.html">Billing</a>
+                <a href="inventory-page.html">Inventory</a>
+                <a href="reports-page.html">Reports</a>
+                <a href="suppliers-page.html" class="active">Suppliers</a>
+                <a href="ledger-page.html">Ledger</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header-section">
+                <h1>Supplier Management</h1>
+            </div>
+
+            <!-- Suppliers List -->
+            <div class="table-section">
+                <h3>Registered Suppliers</h3>
+                <table class="supplier-table">
+                    <thead>
+                        <tr>
+                            <th>Trader Code</th>
+                            <th>Trader Name</th>
+                            <th>Products Supplied</th>
+                            <th>Contact</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="supplierTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #999;">No suppliers found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkAuth() {
+            var user = localStorage.getItem('loggedInUser');
+            if (!user) {
+                window.location.href = 'index.html';
+                return null;
+            }
+            return JSON.parse(user);
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('loggedInUser');
+                window.location.href = 'index.html';
+            }
+        }
+
+        function loadSuppliers() {
+            checkAuth();
+            
+            var products = JSON.parse(localStorage.getItem('products')) || [];
+            var suppliers = {};
+            
+            for (var i = 0; i < products.length; i++) {
+                var p = products[i];
+                var code = p.traderCode;
+                
+                if (suppliers[code]) {
+                    suppliers[code].products.push(p.name);
+                } else {
+                    suppliers[code] = {
+                        name: p.traderName,
+                        products: [p.name]
+                    };
+                }
+            }
+            
+            var tbody = document.getElementById('supplierTableBody');
+            var codes = Object.keys(suppliers);
+            
+            if (codes.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #999;">No suppliers found</td></tr>';
+            } else {
+                var html = '';
+                for (var i = 0; i < codes.length; i++) {
+                    var code = codes[i];
+                    var supplier = suppliers[code];
+                    html += '<tr>';
+                    html += '<td>' + code + '</td>';
+                    html += '<td>' + supplier.name + '</td>';
+                    html += '<td>' + supplier.products.length + ' Products</td>';
+                    html += '<td>+91 98765 43210</td>';
+                    html += '<td><span class="status-active">Active</span></td>';
+                    html += '</tr>';
+                }
+                tbody.innerHTML = html;
+            }
+        }
+
+        loadSuppliers();
+    </script>
+</body>
+</html>

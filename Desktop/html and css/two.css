@@ -1,0 +1,96 @@
+.one{
+    background-color: black;
+    height:50px;
+    padding:15px;
+    h1{
+        color:antiquewhite
+    }
+      h1,ul,li{
+         display:inline;
+    }
+    ul{
+       margin-left: 70%;
+    }
+    li{
+        color:grey  ;
+        cursor:pointer;
+    }
+    li:hover{
+        color:yellow
+    }
+
+}
+
+    
+    
+    input{
+        width:60%;
+         margin:20px;
+         padding:10px;
+         
+    }
+    .three{
+        border-color: black;
+        border-width: 2px;
+        border-style: solid;
+        width:250px;
+        padding:20px;
+        margin:100px;
+        cursor:pointer;
+         display: inline-block; }
+         .three:hover{
+            color:aliceblue;
+            background-color: black;
+         }
+    .three1{
+        border-color: black;
+        border-width: 2px;
+        border-style: solid;
+        width:250px;
+        padding:20px;
+        margin:100px;
+                cursor:pointer;
+
+         display: inline-block;
+    }
+     .three1:hover{
+            color:aliceblue;
+            background-color:gold;
+
+    }
+     .three2{
+        border-color: black;
+        border-width: 2px;
+        border-style: solid;
+        width:250px;
+        padding:20px;
+        margin:100px;
+                cursor:pointer;
+
+         display: inline-block;
+
+    }
+    .three2:hover{
+            color:aliceblue;
+            background-color: aqua;
+
+    }
+    .four:hover{
+        color:antiquewhite;
+        background-color: black;
+    }
+    .four{
+        cursor:pointer;
+        
+
+  }
+  .five{
+    border-color: black;
+        border-width: 2px;
+        border-style: solid;
+        text-align: center;
+  }
+ 
+
+
+  

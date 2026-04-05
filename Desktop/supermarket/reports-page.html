@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - SuperMarket Management</title>
+    <link rel="stylesheet" href="reports-style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>SuperMarket</h2>
+            </div>
+            <nav class="menu">
+                <a href="owner-dashboard.html">Dashboard</a>
+                <a href="billing-page.html">Billing</a>
+                <a href="inventory-page.html">Inventory</a>
+                <a href="reports-page.html" class="active">Reports</a>
+                <a href="suppliers-page.html">Suppliers</a>
+                <a href="ledger-page.html">Ledger</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Sales & Revenue Reports</h1>
+
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="card card-blue">
+                    <div class="card-icon">📊</div>
+                    <div class="card-info">
+                        <h3>Today's Sales</h3>
+                        <p class="amount" id="todaySales">₹0</p>
+                    </div>
+                </div>
+                <div class="card card-purple">
+                    <div class="card-icon">📈</div>
+                    <div class="card-info">
+                        <h3>This Month</h3>
+                        <p class="amount" id="monthlySales">₹0</p>
+                    </div>
+                </div>
+                <div class="card card-green">
+                    <div class="card-icon">💰</div>
+                    <div class="card-info">
+                        <h3>Total Revenue</h3>
+                        <p class="amount" id="totalRevenue">₹0</p>
+                    </div>
+                </div>
+                <div class="card card-orange">
+                    <div class="card-icon">📦</div>
+                    <div class="card-info">
+                        <h3>Products Sold</h3>
+                        <p class="amount" id="productsSold">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Sales Table -->
+            <div class="table-section">
+                <h3>Daily Sales Records</h3>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Bill No</th>
+                            <th>Items</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dailySalesTable">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #999;">No sales records</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Product-wise Report -->
+            <div class="table-section">
+                <h3>Product Wise Sales</h3>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity Sold</th>
+                            <th>Total Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productWiseTable">
+                        <tr>
+                            <td colspan="3" style="text-align: center; color: #999;">No product data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="reports-script.js"></script>
+</body>
+</html>

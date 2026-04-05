@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Refill Request</title>
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Segoe UI', sans-serif;
+            margin:0;
+            background:#f4f6f9;
+        }
+
+        header{
+            background:linear-gradient(to right,#b71c1c,#e53935);
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        .container{
+            width:90%;
+            margin:40px auto;
+            display:flex;
+            gap:30px;
+            justify-content:center;
+        }
+
+        .card{
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.1);
+            width:45%;
+        }
+
+        .card h2{
+            margin-top:0;
+            color:#b71c1c;
+            border-bottom:2px solid #f1f1f1;
+            padding-bottom:10px;
+        }
+
+        .detail{
+            margin-bottom:12px;
+            font-size:15px;
+        }
+
+        .label{
+            font-weight:600;
+            color:#555;
+        }
+
+        input, textarea{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            margin-bottom:15px;
+            border-radius:6px;
+            border:1px solid #ccc;
+            font-size:14px;
+        }
+
+        textarea{
+            resize:none;
+            height:80px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#b71c1c;
+            color:white;
+            border:none;
+            border-radius:6px;
+            font-size:15px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#7f0000;
+        }
+
+        .back-btn{
+            margin-top:10px;
+            background:#555;
+        }
+
+        .back-btn:hover{
+            background:#333;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Refill / Purchase Request</h1>
+</header>
+
+<div class="container">
+
+    <!-- Product Details -->
+    <div class="card">
+        <h2>Product Details</h2>
+
+        <div class="detail"><span class="label">Product ID:</span> <span id="pid"></span></div>
+        <div class="detail"><span class="label">Product Name:</span> <span id="pname"></span></div>
+        <div class="detail"><span class="label">Current Stock:</span> <span id="pstock"></span></div>
+        <div class="detail"><span class="label">Minimum Stock:</span> <span id="pmin"></span></div>
+        <div class="detail"><span class="label">Dealer:</span> <span id="pdealer"></span></div>
+        <div class="detail"><span class="label">Trader Code:</span> <span id="pcode"></span></div>
+    </div>
+
+    <!-- Refill Form -->
+    <div class="card">
+        <h2>Refill Details</h2>
+
+        <label>Refill Quantity</label>
+        <input type="number" id="quantity" placeholder="Enter quantity">
+
+        <label>Expected Delivery Date</label>
+        <input type="date" id="delivery">
+
+        <label>Notes (Optional)</label>
+        <textarea id="notes" placeholder="Additional instructions"></textarea>
+
+        <button onclick="sendRequest()">Send Request</button>
+        <button class="back-btn" onclick="goBack()">Cancel</button>
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    let product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+    if(product){
+
+        document.getElementById("pid").innerText = product.id;
+        document.getElementById("pname").innerText = product.name;
+        document.getElementById("pstock").innerText = product.stock;
+        document.getElementById("pmin").innerText = product.minStock;
+        document.getElementById("pdealer").innerText = product.dealer;
+        document.getElementById("pcode").innerText = product.code;
+
+    } else {
+        alert("No product selected!");
+        window.location.href = "inventory.html";
+    }
+
+});
+
+function sendRequest(){
+
+    let qty = document.getElementById("quantity").value;
+    let delivery = document.getElementById("delivery").value;
+
+    if(qty === "" || qty <= 0){
+        alert("Please enter valid refill quantity!");
+        return;
+    }
+
+    if(delivery === ""){
+        alert("Please select delivery date!");
+        return;
+    }
+
+    let product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+    product.stock = parseInt(product.stock) + parseInt(qty);
+
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+    alert("Refill request sent successfully!");
+
+    window.location.href = "inventory.html";
+}
+
+function goBack(){
+    window.location.href = "inventory.html";
+}
+
+</script>
+
+</body>
+</html>
